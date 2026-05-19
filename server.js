@@ -1,12 +1,14 @@
 require('dotenv').config();
 const express = require('express');
 const authRoutes = require('./src/routes/authRoutes');
+const postRoutes = require('./src/routes/postRoutes')
 
 const app = express();
 
 app.use(express.json());
 
 app.use('/api/auth', authRoutes);
+app.use('/api/posts', postRoutes);
 
 app.get('/', (req, res) => {
     res.json({
