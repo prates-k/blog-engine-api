@@ -3,10 +3,6 @@ const { Post, User } = require('../../models')
 module.exports = {
     async create(req, res) {
         try {
-            console.log('--- DEBUG DO USER_ID ---');
-            console.log('O que tem no req.userId?:', req.userId);
-            console.log('------------------------');
-            
             const { title, content } = req.body;
 
             if (!title || !content) {
