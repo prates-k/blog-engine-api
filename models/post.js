@@ -19,11 +19,14 @@ module.exports = (sequelize, DataTypes) => {
     },
     userId: {
       type: DataTypes.INTEGER,
-      allowNull: false
+      allowNull: false,
+      field: 'userId'
     }
   }, {
     sequelize,
     modelName: 'Post',
+    tableName: 'Posts',
+    timestamps: true
   });
   return Post;
 };

@@ -48,6 +48,11 @@ module.exports = {
                 return res.status(401).json({ error: 'Invalid username or password' });
             }
 
+            const isPasswordValid = await bcrypt.compare(password, user.password);
+            if(!isPasswordValid) {
+                return res.status(401).json({ error: 'Invalid username or password' });
+            }
+
             const token = jwt.sign({ userId: user.id }, process.env.JWT_SECRET, {expiresIn: '1h'});
             
             return res.json({

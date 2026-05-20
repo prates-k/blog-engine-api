@@ -3,6 +3,10 @@ const { Post, User } = require('../../models')
 module.exports = {
     async create(req, res) {
         try {
+            console.log('--- DEBUG DO USER_ID ---');
+            console.log('O que tem no req.userId?:', req.userId);
+            console.log('------------------------');
+            
             const { title, content } = req.body;
 
             if (!title || !content) {
@@ -48,7 +52,7 @@ module.exports = {
                 return res.status(404).json({ error: 'Post not found. '});
             }
 
-            return res.status(post);
+            return res.json(post);
         }
         catch (error) {
             console.error(`Error fetching post with ID ${id}:`, error);
