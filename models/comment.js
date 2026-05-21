@@ -4,7 +4,7 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Comment extends Model {
     static associate(models) {
-      this.belongsTo(models.User, { foreignKey: 'userId', as: 'user' });
+      this.belongsTo(models.User, { foreignKey: 'userId', as: 'author' });
       this.belongsTo(models.Post, { foreignKey: 'postId', as: 'post' });
     }
   }
@@ -24,6 +24,8 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Comment',
+    tableName: 'Comments',
+    timestamps: true
   });
   return Comment;
 };

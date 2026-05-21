@@ -1,4 +1,5 @@
-const { Post, User } = require('../../models')
+const { Post, User, Comment } = require('../../models');
+const comment = require('../../models/comment');
 
 module.exports = {
     async create(req, res) {
@@ -25,7 +26,12 @@ module.exports = {
     async findAll(req, res) {
         try {
             const posts = await Post.findAll({
-                include: [{ model: User, as: 'author', attributes: ['id', 'name', 'username']}],
+                include: [
+                    { model: User, as: 'author', attributes: ['id', 'name', 'username']},
+                    { model: Comment, as: 'comments', 
+                        include: [{model: User, as: 'author', attributes: ['id', 'name', 'username']}]
+                    }
+                ],
                 order: [['createdAt', 'DESC']]
             });
 
@@ -41,7 +47,12 @@ module.exports = {
         try {
             const { id } = req.params;
             const post = await Post.findByPk(id, {
-                include: [{ model: User, as: 'author', attributes: ['id', 'name', 'username']}]
+                include: [
+                    { model: User, as: 'author', attributes: ['id', 'name', 'username']},
+                    { model: Comment, as: 'comments', 
+                        include: [{model: User, as: 'author', attributes: ['id', 'name', 'username']}]
+                    }
+                ],
             });
 
             if (!post) {
